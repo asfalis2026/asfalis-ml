@@ -200,6 +200,14 @@ def run_training():
     print_step("ARTIFACT", f"Model:  {model_path.name}")
     print_step("ARTIFACT", f"Scaler: {scaler_path.name}")
 
+    # 8. Export for Android
+    print_header("ANDROID COMPATIBILITY")
+    try:
+        from export_scaler_json import export as export_scaler
+        export_scaler()
+    except Exception as e:
+        print(f"⚠️ Warning: Could not export scaler JSON: {e}")
+
     # 7. Visualizations
     generate_visualizations(model, X_test_scaled, y_test, y_proba, y_pred, feature_names)
 

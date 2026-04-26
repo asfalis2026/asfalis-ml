@@ -294,7 +294,7 @@ for ax, feat in zip(axes, key_feats):
         patch.set_alpha(0.7)
     ax.set_xticklabels(["SAFE", "DANGER"], fontsize=10)
     ax.set_title(feat, fontsize=10, fontweight="bold")
-    ax.set_ylabel("Value (m/s²)")
+    ax.set_ylabel("Value (g)")
     ax.grid(True, alpha=0.3, axis="y")
 
 plt.tight_layout()
@@ -323,7 +323,7 @@ parts["cmedians"].set_linewidth(2)
 short_labels = [d.replace("SAFE — ", "").replace("DANGER — ", "") for d in order]
 ax.set_xticks(range(1, len(order)+1))
 ax.set_xticklabels(short_labels, rotation=45, ha="right", fontsize=8)
-ax.set_ylabel("Window mag_mean  (m/s²)", fontsize=11)
+ax.set_ylabel("Window mag_mean (g)", fontsize=11)
 ax.set_title("Magnitude Mean per Window — Activity Distribution",
              fontsize=13, fontweight="bold")
 ax.grid(True, alpha=0.3, axis="y")
@@ -343,8 +343,8 @@ for lbl, grp in df_win.groupby("danger_label"):
     tag = "DANGER" if lbl else "SAFE"
     ax.scatter(grp["mag_mean"], grp["mag_std"],
                color=palette[lbl], alpha=0.35, s=14, label=tag)
-ax.set_xlabel("mag_mean  (m/s²)", fontsize=12)
-ax.set_ylabel("mag_std   (m/s²)", fontsize=12)
+ax.set_xlabel("mag_mean (g)", fontsize=12)
+ax.set_ylabel("mag_std  (g)", fontsize=12)
 ax.set_title("Window Separability: mag_mean vs mag_std",
              fontsize=13, fontweight="bold")
 ax.legend(fontsize=11)

@@ -29,16 +29,15 @@ def run():
     initial_types = [('input', FloatTensorType([None, 17]))]
 
     print("Converting unified Pipeline to ONNX...")
-    # This wrapper handles hybrid pipelines (SKL + LGB)
+    # Disable ZipMap to ensure the output is a simple float array (better for Android)
+    from lightgbm import LGBMClassifier
     onnx_model = onnxmltools.convert_sklearn(
         pipeline, 
         initial_types=initial_types,
-        target_opset=13
+        target_opset=13,
+        options={LGBMClassifier: {'zipmap': False}}
     )
 
-    # Note: onnxmltools.convert_sklearn might still use zipmap by default.
-    # We can remove it manually if it exists to make mobile use easier.
-    
     onnx.save(onnx_model, str(ONNX_OUTPUT_PATH))
     print(f"🎉 Success! Unified pipeline saved to {ONNX_OUTPUT_PATH}")
 
